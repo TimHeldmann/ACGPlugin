@@ -3,10 +3,14 @@ project(  ACGPlugin DESCRIPTION "An plugin for MetaCG's CaGe tool, to track argu
 
 include(FetchContent)
 
+set(CMAKE_CXX_STANDARD 23)
+
+set(METACG_BUILD_GRAPH_TOOLS ON)
+
 FetchContent_Declare(
   metacg
   GIT_REPOSITORY https://github.com/TimHeldmann/MetaCG.git
-  GIT_TAG        f9607447c619c9fe3cd4075fb9ddb053aa1120ba
+  GIT_TAG        8118279394a540ffce8ea9369b9235d6e80fd865
 )
 
 FetchContent_MakeAvailable(metacg)
@@ -34,5 +38,5 @@ add_library(acg-plugin SHARED src/ACGPlugin.cpp)
 
 target_include_directories(acg-plugin PRIVATE include ${LLVM_INCLUDE_DIRS})
 target_include_directories(acg-plugin PRIVATE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>)
-target_link_libraries(acg-plugin PRIVATE metacg::metacg)
+target_link_libraries(acg-plugin PRIVATE cage-plugin-interface)
 target_link_libraries(acg-plugin PRIVATE metavirt::Types)
